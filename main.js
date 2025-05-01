@@ -190,6 +190,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 初期の予定行を追加
     addScheduleRow();
+
+    // オーバーレイの透明度を制御
+    const overlayOpacity = document.getElementById('overlay-opacity');
+    const opacityValue = document.getElementById('opacity-value');
+    const backgroundOverlay = document.getElementById('background-overlay');
+
+    overlayOpacity.addEventListener('input', function () {
+        const value = this.value;
+        opacityValue.textContent = value + '%';
+        backgroundOverlay.style.opacity = value / 100;
+    });
 });
 
 document.getElementById("download").addEventListener("click", () => {
