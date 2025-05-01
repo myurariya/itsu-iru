@@ -10,97 +10,105 @@
 
 <body>
     <h1>お給仕スケジュールメーカー</h1>
-
-    <label>フォント:
-        <select id="font-selector">
-            <option value="Sawarabi Gothic">さわらびゴシック</option>
-            <option value="Sawarabi Mincho">さわらび明朝</option>
-            <option value="Noto Sans JP">Noto Sans JP</option>
-            <option value="Noto Serif JP">Noto Serif JP</option>
-            <option value="M PLUS 1p">M PLUS 1p</option>
-            <option value="M PLUS 2">M PLUS 2</option>
-            <option value="M PLUS Rounded 1c">M PLUS Rounded 1c</option>
-            <option value="Kosugi Maru">小杉丸ゴシック</option>
-            <option value="Kiwi Maru">Kiwi Maru</option>
-            <option value="Zen Maru Gothic">Zen Maru Gothic</option>
-            <option value="Zen Kaku Gothic New">Zen Kaku Gothic New</option>
-            <option value="Zen Kurenaido">Zen Kurenaido</option>
-            <option value="Zen Antique">Zen Antique</option>
-            <option value="Zen Old Mincho">Zen Old Mincho</option>
-            <option value="Shippori Mincho">しっぽり明朝</option>
-            <option value="DotGothic16">DotGothic16</option>
-            <option value="RocknRoll One">RocknRoll One</option>
-            <option value="Potta One">Potta One</option>
-            <option value="Yuji Syuku">Yuji Syuku</option>
-        </select>
-    </label><br>
-    <label>タイトルの文字色:
-        <input type="color" id="title-color" value="#000000">
-    </label>
-    <label>
-        <input type="checkbox" id="title-stroke"> タイトルに縁取りを付ける
-    </label><br>
-    <div id="title-stroke-settings" style="display: none; margin-left: 20px;">
-        <label>タイトルの縁取り色:
-            <input type="color" id="title-stroke-color" value="#ffffff">
-        </label><br>
+    <div style="margin-bottom: 20px;">
+        <label>フォント:
+            <select id="font-selector">
+                <option value="Sawarabi Gothic">さわらびゴシック</option>
+                <option value="Sawarabi Mincho">さわらび明朝</option>
+                <option value="Noto Sans JP">Noto Sans JP</option>
+                <option value="Noto Serif JP">Noto Serif JP</option>
+                <option value="M PLUS 1p">M PLUS 1p</option>
+                <option value="M PLUS 2">M PLUS 2</option>
+                <option value="M PLUS Rounded 1c">M PLUS Rounded 1c</option>
+                <option value="Kosugi Maru">小杉丸ゴシック</option>
+                <option value="Kiwi Maru">Kiwi Maru</option>
+                <option value="Zen Maru Gothic">Zen Maru Gothic</option>
+                <option value="Zen Kaku Gothic New">Zen Kaku Gothic New</option>
+                <option value="Zen Kurenaido">Zen Kurenaido</option>
+                <option value="Zen Antique">Zen Antique</option>
+                <option value="Zen Old Mincho">Zen Old Mincho</option>
+                <option value="Shippori Mincho">しっぽり明朝</option>
+                <option value="DotGothic16">DotGothic16</option>
+                <option value="RocknRoll One">RocknRoll One</option>
+                <option value="Potta One">Potta One</option>
+                <option value="Yuji Syuku">Yuji Syuku</option>
+            </select>
+        </label>
     </div>
-    <label>本文の文字色:
-        <input type="color" id="text-color" value="#000000">
-    </label>
-    <label>
-        <input type="checkbox" id="text-stroke"> 本文に縁取りを付ける
-    </label><br>
-    <div id="text-stroke-settings" style="display: none; margin-left: 20px;">
-        <label>本文の縁取り色:
-            <input type="color" id="text-stroke-color" value="#ffffff">
-        </label><br>
-    </div>
-    <label>備考の文字色:
-        <input type="color" id="notes-color" value="#000000">
-    </label>
-    <label>
-        <input type="checkbox" id="notes-stroke"> 備考に縁取りを付ける
-    </label><br>
-    <div id="notes-stroke-settings" style="display: none; margin-left: 20px;">
-        <label>備考の縁取り色:
-            <input type="color" id="notes-stroke-color" value="#ffffff">
-        </label><br>
-    </div><br>
-    <label>
-        <input type="checkbox" id="show-minutes"> 分表示を有効にする
-    </label><br><br>
-    <input type="file" id="background-image" accept="image/*" style="display: none;">
-    <button id="generate">画像を作る</button><br>
-    <button id="select-background">背景を設定</button>&nbsp;&nbsp;&nbsp;
-    <button id="download">画像を保存</button>
-
-    <div id="preview">
-        <div id="schedule-output">
-            <div id="background-overlay"></div>
-            <h2 id="title-display">出勤予定</h2>
-            <pre id="output-text"></pre>
-            <div id="notes-display"></div>
-        </div>
-    </div><br>
-    <label>タイトル:
-        <input type="text" id="schedule-title" value="出勤予定" maxlength="20">
-    </label><br>
-    <div id="schedule-inputs" style="justify-content: center;">
-        <div class="schedule-row">
-            <input type="date" class="date-input" value="">
-            <input type="time" class="time-input" value="00:00">
-            <span>～</span>
-            <input type="time" class="time-input" value="00:00">
-            <input type="text" class="note-input" maxlength="5" placeholder="備考">
+    <div style="margin-bottom: 10px;">
+        <label>タイトルの文字色:
+            <input type="color" id="title-color" value="#000000">
+        </label>
+        <label>
+            <input type="checkbox" id="title-stroke"> タイトルに縁取りを付ける
+        </label>
+        <div id="title-stroke-settings" style="display: none; margin-left: 20px;">
+            <label>タイトルの縁取り色:
+                <input type="color" id="title-stroke-color" value="#ffffff">
+            </label><br>
         </div>
     </div>
-    <button id="add-schedule">予定を追加する</button><br>
-    <label>備考欄:<br>
-        <textarea id="notes" rows="3" maxlength="100" placeholder="備考を入力（最大100文字）"></textarea>
-    </label><br>
-    <script src="libs/html2canvas.min.js"></script>
-    <script src="main.js"></script>
+    <div style="margin-bottom: 10px;">
+        <label>本文の文字色:
+            <input type="color" id="text-color" value="#000000">
+        </label>
+        <label>
+            <input type="checkbox" id="text-stroke"> 本文に縁取りを付ける
+        </label><br>
+        <div id="text-stroke-settings" style="display: none; margin-left: 20px;">
+            <label>本文の縁取り色:
+                <input type="color" id="text-stroke-color" value="#ffffff">
+            </label><br>
+        </div>
+    </div>
+    <div style="margin-bottom: 10px;">
+        <label>備考の文字色:
+            <input type="color" id="notes-color" value="#000000">
+        </label>
+        <label>
+            <input type="checkbox" id="notes-stroke"> 備考に縁取りを付ける
+        </label><br>
+        <div id="notes-stroke-settings" style="display: none; margin-left: 20px;">
+            <label>備考の縁取り色:
+                <input type="color" id="notes-stroke-color" value="#ffffff">
+            </label><br>
+        </div>
+    </div>
+    <div style="margin-bottom: 10px;">
+        <label>
+            <input type="checkbox" id="show-minutes"> 分表示を有効にする
+        </label><br>
+        <input type="file" id="background-image" accept="image/*" style="display: none;">
+        <button id="generate">画像を作る</button><br>
+        <button id="select-background">背景を設定</button>&nbsp;&nbsp;&nbsp;
+        <button id="download">画像を保存</button>
+
+        <div id="preview">
+            <div id="schedule-output">
+                <div id="background-overlay"></div>
+                <h2 id="title-display">出勤予定</h2>
+                <pre id="output-text"></pre>
+                <div id="notes-display"></div>
+            </div>
+        </div><br>
+        <label>タイトル:
+            <input type="text" id="schedule-title" value="出勤予定" maxlength="20">
+        </label><br>
+        <div id="schedule-inputs" style="justify-content: center;">
+            <div class="schedule-row">
+                <input type="date" class="date-input" value="">
+                <input type="time" class="time-input" value="00:00">
+                <span>～</span>
+                <input type="time" class="time-input" value="00:00">
+                <input type="text" class="note-input" maxlength="5" placeholder="備考">
+            </div>
+        </div>
+        <button id="add-schedule">予定を追加する</button><br>
+        <label>備考欄:<br>
+            <textarea id="notes" rows="3" maxlength="100" placeholder="備考を入力（最大100文字）"></textarea>
+        </label><br>
+        <script src="libs/html2canvas.min.js"></script>
+        <script src="main.js"></script>
 </body>
 
 </html>
