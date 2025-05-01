@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>お給仕スケジュールメーカー</title>
+    <title>いついる？</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 
 <body>
-    <h1>お給仕スケジュールメーカー</h1>
+    <h1>いついる？</h1>
     <div style="margin-bottom: 20px;">
         <label>フォント:
             <select id="font-selector">
@@ -88,7 +88,7 @@
         <div id="preview">
             <div id="schedule-output">
                 <div id="background-overlay"></div>
-                <h2 id="title-display">出勤予定</h2>
+                <h2 id="title-display">今月の予定</h2>
                 <pre id="output-text"></pre>
                 <div id="notes-display"></div>
             </div>
@@ -99,7 +99,7 @@
         <button id="download">画像を保存</button><br>
         <button id="generate">予定入力を反映</button><br><br>
         <label>タイトル:
-            <input type="text" id="schedule-title" value="出勤予定" maxlength="20">
+            <input type="text" id="schedule-title" value="今月の予定" maxlength="20">
         </label><br>
         <div id="schedule-inputs" style="justify-content: center;">
             <div class="schedule-row">
