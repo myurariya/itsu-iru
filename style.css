@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Kosugi+Maru&family=M+PLUS+1p&family=Noto+Sans+JP&family=Sawarabi+Gothic&family=Yuji+Syuku&family=Zen+Antique&family=Zen+Kaku+Gothic+New&family=Zen+Kurenaido&family=Zen+Maru+Gothic&display=swap');
+
+:root {
+    --overlay-margin: 20px;
+    --title-stroke-color: #ffffff;
+    --text-stroke-color: #ffffff;
+    --notes-stroke-color: #ffffff;
+    --stroke-color: #ffffff;
+    /* 白い下地の余白サイズ */
+}
+
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background: #f9f9f9;
+    padding: 20px;
+}
+
+textarea {
+    width: 300px;
+    height: 120px;
+    margin: 10px;
+}
+
+#preview {
+    margin-top: 20px;
+}
+
+#schedule-output {
+    width: 300px;
+    min-height: 200px;
+    padding: 20px;
+    margin: auto;
+    border: 2px solid #ddd;
+    background-color: #ffe4e1;
+    font-family: 'Sawarabi Gothic', sans-serif;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#background-overlay {
+    position: absolute;
+    top: var(--overlay-margin);
+    left: var(--overlay-margin);
+    right: var(--overlay-margin);
+    bottom: var(--overlay-margin);
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+    border-radius: 8px;
+    /* 角を少し丸くします */
+}
+
+#schedule-output h2,
+#schedule-output pre {
+    position: relative;
+    z-index: 2;
+}
+
+#schedule-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.schedule-row {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.date-input,
+.time-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+#add-schedule {
+    margin: 10px 0;
+    padding: 5px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#add-schedule:hover {
+    background-color: #45a049;
+}
+
+#download {
+    margin: 10px 0;
+    padding: 5px 15px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#download:hover {
+    background-color: #1976D2;
+}
+
+.note-input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#schedule-title {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#notes {
+    width: 300px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+#notes-display {
+    margin: 20px var(--overlay-margin);
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+#title-display {
+    margin-bottom: 20px;
+}
+
+#output-text {
+    margin: 0 var(--overlay-margin);
+    line-height: 2;
+}
+
+.title-stroke {
+    text-shadow:
+        -1px -1px 0 var(--title-stroke-color),
+        1px -1px 0 var(--title-stroke-color),
+        -1px 1px 0 var(--title-stroke-color),
+        1px 1px 0 var(--title-stroke-color);
+}
+
+.text-stroke {
+    text-shadow:
+        -1px -1px 0 var(--text-stroke-color),
+        1px -1px 0 var(--text-stroke-color),
+        -1px 1px 0 var(--text-stroke-color),
+        1px 1px 0 var(--text-stroke-color);
+}
+
+.notes-stroke {
+    text-shadow:
+        -1px -1px 0 var(--notes-stroke-color),
+        1px -1px 0 var(--notes-stroke-color),
+        -1px 1px 0 var(--notes-stroke-color),
+        1px 1px 0 var(--notes-stroke-color);
+}

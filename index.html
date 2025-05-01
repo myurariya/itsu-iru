@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>お給仕スケジュールメーカー</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <h1>お給仕スケジュールメーカー</h1>
+
+    <label>フォント:
+        <select id="font-selector">
+            <option value="Sawarabi Gothic">さわらびゴシック</option>
+            <option value="DotGothic16">DotGothic16</option>
+            <option value="M PLUS 1p">M PLUS 1p</option>
+            <option value="Kosugi Maru">小杉丸ゴシック</option>
+            <option value="Noto Sans JP">Noto Sans JP</option>
+            <option value="Zen Kaku Gothic New">Zen Kaku Gothic New</option>
+            <option value="Zen Maru Gothic">Zen Maru Gothic</option>
+            <option value="Zen Kurenaido">Zen Kurenaido</option>
+            <option value="Yuji Syuku">Yuji Syuku</option>
+            <option value="Zen Antique">Zen Antique</option>
+        </select>
+    </label><br>
+    <label>タイトルの文字色:
+        <input type="color" id="title-color" value="#000000">
+    </label>
+    <label>
+        <input type="checkbox" id="title-stroke"> タイトルに縁取りを付ける
+    </label><br>
+    <div id="title-stroke-settings" style="display: none; margin-left: 20px;">
+        <label>タイトルの縁取り色:
+            <input type="color" id="title-stroke-color" value="#ffffff">
+        </label><br>
+    </div>
+    <label>本文の文字色:
+        <input type="color" id="text-color" value="#000000">
+    </label>
+    <label>
+        <input type="checkbox" id="text-stroke"> 本文に縁取りを付ける
+    </label><br>
+    <div id="text-stroke-settings" style="display: none; margin-left: 20px;">
+        <label>本文の縁取り色:
+            <input type="color" id="text-stroke-color" value="#ffffff">
+        </label><br>
+    </div>
+    <label>備考の文字色:
+        <input type="color" id="notes-color" value="#000000">
+    </label>
+    <label>
+        <input type="checkbox" id="notes-stroke"> 備考に縁取りを付ける
+    </label><br>
+    <div id="notes-stroke-settings" style="display: none; margin-left: 20px;">
+        <label>備考の縁取り色:
+            <input type="color" id="notes-stroke-color" value="#ffffff">
+        </label><br>
+    </div><br>
+    <label>
+        <input type="checkbox" id="show-minutes"> 分表示を有効にする
+    </label><br>
+    <input type="file" id="background-image" accept="image/*" style="display: none;">
+    <button id="select-background">背景画像を設定する</button>
+    <button id="generate">画像を作る</button><br>
+    <button id="download">画像を保存</button>
+
+    <div id="preview">
+        <div id="schedule-output">
+            <div id="background-overlay"></div>
+            <h2 id="title-display">出勤予定</h2>
+            <pre id="output-text"></pre>
+            <div id="notes-display"></div>
+        </div>
+    </div><br>
+    <label>タイトル:
+        <input type="text" id="schedule-title" value="出勤予定" maxlength="20">
+    </label><br>
+    <div id="schedule-inputs" style="justify-content: center;">
+        <div class="schedule-row">
+            <input type="date" class="date-input" value="">
+            <input type="time" class="time-input" value="00:00">
+            <span>～</span>
+            <input type="time" class="time-input" value="00:00">
+            <input type="text" class="note-input" maxlength="5" placeholder="備考">
+        </div>
+    </div>
+    <button id="add-schedule">予定を追加する</button><br>
+    <label>備考欄:<br>
+        <textarea id="notes" rows="3" maxlength="100" placeholder="備考を入力（最大100文字）"></textarea>
+    </label><br>
+    <script src="libs/html2canvas.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
