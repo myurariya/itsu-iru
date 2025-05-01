@@ -126,7 +126,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // フォント変更のイベントリスナー
     fontSelector.addEventListener('change', (e) => {
-        scheduleOutput.style.fontFamily = e.target.value;
+        const selectedFont = e.target.value;
+        scheduleOutput.style.fontFamily = `'${selectedFont}', sans-serif`;
+        titleDisplay.style.fontFamily = `'${selectedFont}', sans-serif`;
+        outputText.style.fontFamily = `'${selectedFont}', sans-serif`;
+        notesDisplay.style.fontFamily = `'${selectedFont}', sans-serif`;
     });
 
     // 新しい予定行を追加する関数
