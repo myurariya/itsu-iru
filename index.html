@@ -78,10 +78,6 @@
         <label>
             <input type="checkbox" id="show-minutes"> 分表示を有効にする
         </label><br>
-        <input type="file" id="background-image" accept="image/*" style="display: none;">
-        <button id="generate">画像を作る</button><br>
-        <button id="select-background">背景を設定</button>&nbsp;&nbsp;&nbsp;
-        <button id="download">画像を保存</button>
 
         <div id="preview">
             <div id="schedule-output">
@@ -90,7 +86,12 @@
                 <pre id="output-text"></pre>
                 <div id="notes-display"></div>
             </div>
-        </div><br>
+        </div>
+        <input type="file" id="background-image" accept="image/*" style="display: none;">
+        <br>
+        <button id="select-background">背景を設定</button>&nbsp;&nbsp;&nbsp;
+        <button id="download">画像を保存</button><br>
+        <button id="generate">予定入力を反映</button><br><br>
         <label>タイトル:
             <input type="text" id="schedule-title" value="出勤予定" maxlength="20">
         </label><br>
