@@ -100,7 +100,7 @@ textarea {
     background-color: #45a049;
 }
 
-#download {
+#generate {
     margin: 10px 0;
     padding: 5px 15px;
     background-color: #2196F3;
@@ -110,7 +110,7 @@ textarea {
     cursor: pointer;
 }
 
-#download:hover {
+#generate:hover {
     background-color: #1976D2;
 }
 
