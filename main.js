@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 分表示の切り替え時に即座に画像を更新
         const rows = document.querySelectorAll('.schedule-row');
-        let scheduleText = '';
+        let scheduleData = [];
 
         rows.forEach(row => {
             const dateInput = row.querySelector('.date-input');
@@ -145,11 +145,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (noteInput.value) {
                     line += ` ${noteInput.value}`;
                 }
-                scheduleText += line + '\n';
+
+                // 日付と表示テキストをオブジェクトとして保存
+                scheduleData.push({
+                    date: date,
+                    text: line
+                });
             }
         });
 
-        outputText.textContent = scheduleText;
+        // 日付でソート
+        scheduleData.sort((a, b) => a.date - b.date);
+
+        // ソートされた予定を表示
+        outputText.textContent = scheduleData.map(item => item.text).join('\n');
     });
 
     // 背景画像選択ボタンのイベントリスナー
@@ -200,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 画像生成ボタンのイベントリスナー
     generateButton.addEventListener('click', function () {
         const rows = document.querySelectorAll('.schedule-row');
-        let scheduleText = '';
+        let scheduleData = [];
 
         rows.forEach(row => {
             const dateInput = row.querySelector('.date-input');
@@ -225,11 +234,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (noteInput.value) {
                     line += ` ${noteInput.value}`;
                 }
-                scheduleText += line + '\n';
+
+                // 日付と表示テキストをオブジェクトとして保存
+                scheduleData.push({
+                    date: date,
+                    text: line
+                });
             }
         });
 
-        outputText.textContent = scheduleText;
+        // 日付でソート
+        scheduleData.sort((a, b) => a.date - b.date);
+
+        // ソートされた予定を表示
+        outputText.textContent = scheduleData.map(item => item.text).join('\n');
         notesDisplay.textContent = notes.value;
     });
 
