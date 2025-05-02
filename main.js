@@ -117,6 +117,39 @@ document.addEventListener('DOMContentLoaded', function () {
         timeInputs.forEach(input => {
             input.step = this.checked ? '300' : '3600'; // 5分単位または1時間単位
         });
+
+        // 分表示の切り替え時に即座に画像を更新
+        const rows = document.querySelectorAll('.schedule-row');
+        let scheduleText = '';
+
+        rows.forEach(row => {
+            const dateInput = row.querySelector('.date-input');
+            const timeInputs = row.querySelectorAll('.time-input');
+            const noteInput = row.querySelector('.note-input');
+
+            if (dateInput.value && timeInputs[0].value && timeInputs[1].value) {
+                const date = new Date(dateInput.value);
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                const weekday = weekdays[date.getDay()];
+
+                let startTime = timeInputs[0].value;
+                let endTime = timeInputs[1].value;
+
+                if (!this.checked) {
+                    startTime = startTime.substring(0, 2) + '時';
+                    endTime = endTime.substring(0, 2) + '時';
+                }
+
+                let line = `${month}月${day}日（${weekday}）${startTime}～${endTime}`;
+                if (noteInput.value) {
+                    line += ` ${noteInput.value}`;
+                }
+                scheduleText += line + '\n';
+            }
+        });
+
+        outputText.textContent = scheduleText;
     });
 
     // 背景画像選択ボタンのイベントリスナー
