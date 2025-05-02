@@ -251,7 +251,13 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById("download").addEventListener("click", () => {
     html2canvas(document.getElementById("schedule-output")).then(canvas => {
         const link = document.createElement("a");
-        link.download = "itsuiru-schedule.png";
+        const now = new Date();
+        const dateStr = now.getFullYear() +
+            ('0' + (now.getMonth() + 1)).slice(-2) +
+            ('0' + now.getDate()).slice(-2) +
+            ('0' + now.getHours()).slice(-2) +
+            ('0' + now.getMinutes()).slice(-2);
+        link.download = `itsuiru-schedule-${dateStr}.png`;
         link.href = canvas.toDataURL();
         link.click();
     });
