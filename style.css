@@ -27,8 +27,6 @@ textarea {
 }
 
 #schedule-output {
-    width: 300px;
-    min-height: 200px;
     padding: 20px;
     margin: auto;
     border: 2px solid #ddd;
@@ -38,6 +36,16 @@ textarea {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+#schedule-output.landscape {
+    width: 300px;
+    min-height: 200px;
+}
+
+#schedule-output.portrait {
+    width: 200px;
+    min-height: 300px;
 }
 
 #background-overlay {

@@ -25,6 +25,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const textStrokeColor = document.getElementById('text-stroke-color');
     const notesStrokeColor = document.getElementById('notes-stroke-color');
 
+    // 画像の向きの切り替え
+    const orientationInputs = document.querySelectorAll('input[name="orientation"]');
+    orientationInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            scheduleOutput.classList.remove('landscape', 'portrait');
+            scheduleOutput.classList.add(this.value);
+        });
+    });
+
+    // 初期状態を設定
+    scheduleOutput.classList.add('landscape');
+
     // タイトルの縁取り設定
     titleStroke.addEventListener('change', function () {
         titleStrokeSettings.style.display = this.checked ? 'block' : 'none';
