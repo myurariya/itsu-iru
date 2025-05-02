@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById("download").addEventListener("click", () => {
     html2canvas(document.getElementById("schedule-output")).then(canvas => {
         const link = document.createElement("a");
-        link.download = "okyuji-schedule.png";
+        link.download = "itsuiru-schedule.png";
         link.href = canvas.toDataURL();
         link.click();
     });
