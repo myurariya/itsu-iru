@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const addScheduleButton = document.getElementById('add-schedule');
     const scheduleInputs = document.getElementById('schedule-inputs');
-    const generateButton = document.getElementById('generate');
     const outputText = document.getElementById('output-text');
     const backgroundImageInput = document.getElementById('background-image');
     const selectBackgroundButton = document.getElementById('select-background');
@@ -111,16 +110,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // 曜日の配列
     const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
 
-    // 分表示の制御
-    showMinutes.addEventListener('change', function () {
-        const timeInputs = document.querySelectorAll('.time-input');
-        timeInputs.forEach(input => {
-            input.step = this.checked ? '300' : '3600'; // 5分単位または1時間単位
-        });
-
-        // 分表示の切り替え時に即座に画像を更新
+    // 予定表示を最新化
+    function collectScheduleData() {
         const rows = document.querySelectorAll('.schedule-row');
-        let scheduleData = [];
+        const scheduleData = [];
 
         rows.forEach(row => {
             const dateInput = row.querySelector('.date-input');
@@ -136,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let startTime = timeInputs[0].value;
                 let endTime = timeInputs[1].value;
 
-                if (!this.checked) {
+                if (!showMinutes.checked) {
                     startTime = startTime.substring(0, 2) + '時';
                     endTime = endTime.substring(0, 2) + '時';
                 }
@@ -146,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     line += ` ${noteInput.value}`;
                 }
 
-                // 日付と表示テキストをオブジェクトとして保存
                 scheduleData.push({
                     date: date,
                     text: line
@@ -154,11 +146,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // 日付でソート
         scheduleData.sort((a, b) => a.date - b.date);
+        return scheduleData;
+    }
 
-        // ソートされた予定を表示
+    function updateScheduleDisplay() {
+        const scheduleData = collectScheduleData();
         outputText.textContent = scheduleData.map(item => item.text).join('\n');
+        notesDisplay.textContent = notes.value;
+    }
+
+    scheduleInputs.addEventListener('input', updateScheduleDisplay);
+    scheduleInputs.addEventListener('change', updateScheduleDisplay);
+    notes.addEventListener('input', updateScheduleDisplay);
+
+    const initialTimeInputs = document.querySelectorAll('.time-input');
+    initialTimeInputs.forEach(input => {
+        input.step = showMinutes.checked ? '300' : '3600';
+    });
+
+    // 分表示の制御
+    showMinutes.addEventListener('change', function () {
+        const timeInputs = document.querySelectorAll('.time-input');
+        timeInputs.forEach(input => {
+            input.step = this.checked ? '300' : '3600'; // 5分単位または1時間単位
+        });
+        updateScheduleDisplay();
     });
 
     // 背景画像選択ボタンのイベントリスナー
@@ -203,59 +216,21 @@ document.addEventListener('DOMContentLoaded', function () {
             <input type="time" class="time-input" value="00:00">
             <input type="text" class="note-input" maxlength="5" placeholder="備考">
         `;
+
+        const timeInputs = row.querySelectorAll('.time-input');
+        timeInputs.forEach(input => {
+            input.step = showMinutes.checked ? '300' : '3600';
+        });
+
         scheduleInputs.appendChild(row);
     }
 
     // 予定を追加ボタンのイベントリスナー
     addScheduleButton.addEventListener('click', addScheduleRow);
 
-    // 画像生成ボタンのイベントリスナー
-    generateButton.addEventListener('click', function () {
-        const rows = document.querySelectorAll('.schedule-row');
-        let scheduleData = [];
-
-        rows.forEach(row => {
-            const dateInput = row.querySelector('.date-input');
-            const timeInputs = row.querySelectorAll('.time-input');
-            const noteInput = row.querySelector('.note-input');
-
-            if (dateInput.value && timeInputs[0].value && timeInputs[1].value) {
-                const date = new Date(dateInput.value);
-                const month = date.getMonth() + 1;
-                const day = date.getDate();
-                const weekday = weekdays[date.getDay()];
-
-                let startTime = timeInputs[0].value;
-                let endTime = timeInputs[1].value;
-
-                if (!showMinutes.checked) {
-                    startTime = startTime.substring(0, 2) + '時';
-                    endTime = endTime.substring(0, 2) + '時';
-                }
-
-                let line = `${month}月${day}日（${weekday}）${startTime}～${endTime}`;
-                if (noteInput.value) {
-                    line += ` ${noteInput.value}`;
-                }
-
-                // 日付と表示テキストをオブジェクトとして保存
-                scheduleData.push({
-                    date: date,
-                    text: line
-                });
-            }
-        });
-
-        // 日付でソート
-        scheduleData.sort((a, b) => a.date - b.date);
-
-        // ソートされた予定を表示
-        outputText.textContent = scheduleData.map(item => item.text).join('\n');
-        notesDisplay.textContent = notes.value;
-    });
-
     // 初期の予定行を追加
     addScheduleRow();
+    updateScheduleDisplay();
 
     // オーバーレイの透明度を制御
     const overlayOpacity = document.getElementById('overlay-opacity');
