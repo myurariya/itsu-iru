@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const titleStrokeColor = document.getElementById('title-stroke-color');
     const textStrokeColor = document.getElementById('text-stroke-color');
     const notesStrokeColor = document.getElementById('notes-stroke-color');
+    const holdHint = document.getElementById('hold-hint');
+    const scheduleInputsContainer = document.querySelector('.schedule-inputs-container');
 
     // 画像の向きの切り替え
     const orientationInputs = document.querySelectorAll('input[name="orientation"]');
@@ -209,6 +211,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // 新しい予定行を追加する関数
+    const HOLD_DURATION = 1200;
+    let holdState = null;
+    let holdHintShown = false;
+    let holdHintTimeoutId = null;
+
     function addScheduleRow() {
         const row = document.createElement('div');
         row.className = 'schedule-row';
@@ -231,6 +238,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         scheduleInputs.appendChild(row);
+        updateRemoveButtons();
+    }
+
+    function removeScheduleRow(row) {
+        if (!row) return;
+        row.remove();
+        updateScheduleDisplay();
         updateRemoveButtons();
     }
 
@@ -292,17 +306,114 @@ document.addEventListener('DOMContentLoaded', function () {
 
     scheduleInputs.addEventListener('change', handleAutoAddOnLastDateInput);
 
-    scheduleInputs.addEventListener('click', function (event) {
+    function startRemoveHold(button, pointerId) {
+        cancelRemoveHold();
+        holdState = {
+            button,
+            pointerId,
+            start: performance.now(),
+            rafId: null
+        };
+
+        button.classList.add('remove-row-button--holding');
+        button.style.setProperty('--hold-progress-visible', '1');
+        button.style.setProperty('--hold-progress', '0deg');
+
+        const step = () => {
+            if (!holdState || holdState.button !== button) return;
+            const elapsed = performance.now() - holdState.start;
+            const progress = Math.min(elapsed / HOLD_DURATION, 1);
+            button.style.setProperty('--hold-progress', `${progress * 360}deg`);
+
+            if (progress >= 1) {
+                const row = button.closest('.schedule-row');
+                cancelRemoveHold(true);
+                removeScheduleRow(row);
+                return;
+            }
+
+            holdState.rafId = requestAnimationFrame(step);
+        };
+
+        holdState.rafId = requestAnimationFrame(step);
+    }
+
+    function showHoldHint(triggerButton) {
+        if (!holdHint || holdHintShown) return;
+        if (!triggerButton || !scheduleInputsContainer) return;
+        holdHintShown = true;
+        holdHint.textContent = '予定を削除するには長押ししてください';
+
+        const containerRect = scheduleInputsContainer.getBoundingClientRect();
+        const buttonRect = triggerButton.getBoundingClientRect();
+        const hintHeight = holdHint.offsetHeight || 20;
+        let top = buttonRect.top - containerRect.top + (buttonRect.height - hintHeight) / 2;
+        top = Math.max(top, 0);
+        holdHint.style.top = `${top}px`;
+        holdHint.classList.add('hold-hint--visible');
+
+        if (holdHintTimeoutId) {
+            clearTimeout(holdHintTimeoutId);
+        }
+
+        holdHintTimeoutId = setTimeout(() => {
+            holdHint.classList.remove('hold-hint--visible');
+        }, 3000);
+    }
+
+    function cancelRemoveHold(completed = false) {
+        if (!holdState) return;
+
+        if (holdState.rafId) {
+            cancelAnimationFrame(holdState.rafId);
+        }
+
+        const { button } = holdState;
+        if (!completed) {
+            button.style.removeProperty('--hold-progress');
+            button.style.removeProperty('--hold-progress-visible');
+            if (!holdHintShown) {
+                showHoldHint(button);
+            }
+        }
+        button.classList.remove('remove-row-button--holding');
+
+        holdState = null;
+    }
+
+    function handlePointerUp(event) {
+        if (!holdState || event.pointerId !== holdState.pointerId) return;
+        cancelRemoveHold();
+    }
+
+    function handlePointerMove(event) {
+        if (!holdState || event.pointerId !== holdState.pointerId) return;
+        const button = holdState.button;
+        const rect = button.getBoundingClientRect();
+        const isInside = (
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom
+        );
+
+        if (!isInside) {
+            cancelRemoveHold();
+        }
+    }
+
+    function handlePointerDown(event) {
         const removeButton = event.target.closest('.remove-row-button');
-        if (!removeButton) return;
+        if (!removeButton || removeButton.classList.contains('remove-row-button--hidden')) return;
 
-        const row = removeButton.closest('.schedule-row');
-        if (!row) return;
+        event.preventDefault();
+        startRemoveHold(removeButton, event.pointerId);
+    }
 
-        row.remove();
-        updateScheduleDisplay();
-        updateRemoveButtons();
-    });
+    scheduleInputs.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('pointerup', handlePointerUp);
+    document.addEventListener('pointercancel', handlePointerUp);
+    document.addEventListener('pointermove', handlePointerMove);
 
     // 初期の予定行を追加
     addScheduleRow();

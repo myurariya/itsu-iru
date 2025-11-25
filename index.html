@@ -117,17 +117,20 @@
         <label>タイトル:
             <input type="text" id="schedule-title" value="今月の予定" maxlength="20">
         </label><br>
-        <div id="schedule-inputs" style="justify-content: center; margin-bottom: 1px;">
-            <div class="schedule-row">
-                <input type="date" class="date-input" value="">
-                <input type="time" class="time-input" value="00:00">
-                <span>～</span>
-                <input type="time" class="time-input" value="00:00">
-                <input type="text" class="note-input" maxlength="5" placeholder="備考">
-                <button type="button" class="remove-row-button" aria-label="この予定を削除">
-                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                </button>
+        <div class="schedule-inputs-container">
+            <div id="schedule-inputs" style="justify-content: center; margin-bottom: 1px;">
+                <div class="schedule-row">
+                    <input type="date" class="date-input" value="">
+                    <input type="time" class="time-input" value="00:00">
+                    <span>～</span>
+                    <input type="time" class="time-input" value="00:00">
+                    <input type="text" class="note-input" maxlength="5" placeholder="備考">
+                    <button type="button" class="remove-row-button" aria-label="この予定を削除">
+                        <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
+            <div id="hold-hint" class="hold-hint" aria-live="polite" role="status"></div>
         </div>
         <button id="add-schedule" aria-label="予定を追加">
             <i class="fa-solid fa-plus" aria-hidden="true"></i>

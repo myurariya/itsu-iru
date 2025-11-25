@@ -124,16 +124,64 @@ textarea {
     cursor: pointer;
     font-size: 1.1rem;
     line-height: 1;
-    padding: 6px;
+    padding: 10px;
     color: #c0392b;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    border-radius: 999px;
+    overflow: hidden;
+    width: 42px;
+    height: 42px;
+    --hold-progress: 0deg;
+    --hold-progress-visible: 0;
+}
+
+.remove-row-button::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: conic-gradient(rgba(192, 57, 43, 0.35) var(--hold-progress, 0deg), transparent 0deg);
+    opacity: var(--hold-progress-visible, 0);
+    transition: opacity 0.2s ease;
+    z-index: 0;
+}
+
+.remove-row-button i {
+    position: relative;
+    z-index: 1;
 }
 
 .remove-row-button--hidden {
     visibility: hidden;
     pointer-events: none;
+}
+
+.hold-hint {
+    min-height: 1.5em;
+    color: #c0392b;
+    font-size: 0.9rem;
+    text-align: left;
+    width: 300px;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    position: absolute;
+    top: 8px;
+    right: -300px;
+}
+
+.hold-hint--visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.schedule-inputs-container {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .remove-row-button:hover,
