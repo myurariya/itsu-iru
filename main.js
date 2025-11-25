@@ -256,6 +256,20 @@ document.addEventListener('DOMContentLoaded', function () {
     // 予定を追加ボタンのイベントリスナー
     addScheduleButton.addEventListener('click', addScheduleRow);
 
+    function handleAutoAddOnLastDateInput(event) {
+        if (!event.target.classList.contains('date-input')) return;
+
+        const rows = Array.from(scheduleInputs.querySelectorAll('.schedule-row'));
+        if (!rows.length) return;
+
+        const lastRow = rows[rows.length - 1];
+        if (lastRow.contains(event.target) && event.target.value) {
+            addScheduleRow();
+        }
+    }
+
+    scheduleInputs.addEventListener('change', handleAutoAddOnLastDateInput);
+
     // 初期の予定行を追加
     addScheduleRow();
     setDefaultFirstRowValues();
