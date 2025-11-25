@@ -31,11 +31,15 @@ textarea {
     margin: auto;
     border: 2px solid #ddd;
     background-color: #ffe4e1;
+    /* 市松模様をデフォルト背景にする */
+    background-image:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.9) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.9) 75%),
+        linear-gradient(45deg, rgba(255, 204, 213, 0.8) 25%, transparent 25%, transparent 75%, rgba(255, 204, 213, 0.8) 75%);
+    background-size: 40px 40px;
     font-family: 'Sawarabi Gothic', sans-serif;
     position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-position: 0 0, 20px 20px;
+    background-repeat: repeat;
 }
 
 #schedule-output.landscape {

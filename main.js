@@ -173,6 +173,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const reader = new FileReader();
             reader.onload = (e) => {
                 scheduleOutput.style.backgroundImage = `url(${e.target.result})`;
+                scheduleOutput.style.backgroundSize = 'cover';
+                scheduleOutput.style.backgroundPosition = 'center';
+                scheduleOutput.style.backgroundRepeat = 'no-repeat';
             };
             reader.readAsDataURL(file);
         }
@@ -258,6 +261,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const overlayOpacity = document.getElementById('overlay-opacity');
     const opacityValue = document.getElementById('opacity-value');
     const backgroundOverlay = document.getElementById('background-overlay');
+
+    // 初期状態でもデフォルト値を反映
+    const defaultOpacity = overlayOpacity.value;
+    opacityValue.textContent = `${defaultOpacity}%`;
+    backgroundOverlay.style.opacity = defaultOpacity / 100;
 
     overlayOpacity.addEventListener('input', function () {
         const value = this.value;
