@@ -164,13 +164,13 @@ textarea {
     color: #c0392b;
     font-size: 0.9rem;
     text-align: left;
-    width: 300px;
+    width: 350px;
     opacity: 0;
     transform: translateX(8px);
     transition: opacity 0.25s ease, transform 0.25s ease;
     position: absolute;
     top: 8px;
-    right: -300px;
+    right: -360px;
 }
 
 .hold-hint--visible {

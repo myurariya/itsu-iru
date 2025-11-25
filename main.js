@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 画像の向きの切り替え
     const orientationInputs = document.querySelectorAll('input[name="orientation"]');
     orientationInputs.forEach(input => {
-        input.addEventListener('change', function() {
+        input.addEventListener('change', function () {
             scheduleOutput.classList.remove('landscape', 'portrait');
             scheduleOutput.classList.add(this.value);
         });
@@ -213,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // 新しい予定行を追加する関数
     const HOLD_DURATION = 1200;
     let holdState = null;
-    let holdHintShown = false;
     let holdHintTimeoutId = null;
 
     function addScheduleRow() {
@@ -339,10 +338,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showHoldHint(triggerButton) {
-        if (!holdHint || holdHintShown) return;
+        if (!holdHint) return;
         if (!triggerButton || !scheduleInputsContainer) return;
-        holdHintShown = true;
-        holdHint.textContent = '予定を削除するには長押ししてください';
+
+        holdHint.textContent = '予定を削除したいときは、長押ししてください';
 
         const containerRect = scheduleInputsContainer.getBoundingClientRect();
         const buttonRect = triggerButton.getBoundingClientRect();
@@ -372,9 +371,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!completed) {
             button.style.removeProperty('--hold-progress');
             button.style.removeProperty('--hold-progress-visible');
-            if (!holdHintShown) {
-                showHoldHint(button);
-            }
+            showHoldHint(button);
         }
         button.classList.remove('remove-row-button--holding');
 
