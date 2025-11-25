@@ -16,6 +16,22 @@ body {
     padding: 20px;
 }
 
+.site-footer {
+    margin-top: 40px;
+    font-size: 0.85em;
+    color: #666;
+    line-height: 1.6;
+}
+
+.site-footer a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
 textarea {
     width: 300px;
     height: 120px;
