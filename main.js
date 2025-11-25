@@ -230,11 +230,35 @@ document.addEventListener('DOMContentLoaded', function () {
         scheduleInputs.appendChild(row);
     }
 
+    function setDefaultFirstRowValues() {
+        const firstRow = scheduleInputs.querySelector('.schedule-row');
+        if (!firstRow) return;
+
+        const dateInput = firstRow.querySelector('.date-input');
+        const timeInputs = firstRow.querySelectorAll('.time-input');
+        const today = new Date();
+        const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+        if (dateInput && !dateInput.value) {
+            dateInput.value = formattedDate;
+        }
+
+        if (timeInputs.length >= 2) {
+            if (!timeInputs[0].value || timeInputs[0].value === '00:00') {
+                timeInputs[0].value = '18:00';
+            }
+            if (!timeInputs[1].value || timeInputs[1].value === '00:00') {
+                timeInputs[1].value = '21:00';
+            }
+        }
+    }
+
     // 予定を追加ボタンのイベントリスナー
     addScheduleButton.addEventListener('click', addScheduleRow);
 
     // 初期の予定行を追加
     addScheduleRow();
+    setDefaultFirstRowValues();
     updateScheduleDisplay();
 
     // オーバーレイの透明度を制御
