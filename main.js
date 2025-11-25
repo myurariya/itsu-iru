@@ -220,6 +220,9 @@ document.addEventListener('DOMContentLoaded', function () {
             <span>～</span>
             <input type="time" class="time-input" value="00:00">
             <input type="text" class="note-input" maxlength="5" placeholder="備考">
+            <button type="button" class="remove-row-button" aria-label="この予定を削除">
+                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+            </button>
         `;
 
         const timeInputs = row.querySelectorAll('.time-input');
@@ -228,6 +231,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         scheduleInputs.appendChild(row);
+        updateRemoveButtons();
+    }
+
+    function updateRemoveButtons() {
+        const rows = scheduleInputs.querySelectorAll('.schedule-row');
+        rows.forEach((row, index) => {
+            const removeButton = row.querySelector('.remove-row-button');
+            if (!removeButton) return;
+
+            if (index === 0) {
+                removeButton.classList.add('remove-row-button--hidden');
+                removeButton.setAttribute('tabindex', '-1');
+                removeButton.setAttribute('aria-hidden', 'true');
+            } else {
+                removeButton.classList.remove('remove-row-button--hidden');
+                removeButton.removeAttribute('tabindex');
+                removeButton.removeAttribute('aria-hidden');
+            }
+        });
     }
 
     function setDefaultFirstRowValues() {
@@ -270,10 +292,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     scheduleInputs.addEventListener('change', handleAutoAddOnLastDateInput);
 
+    scheduleInputs.addEventListener('click', function (event) {
+        const removeButton = event.target.closest('.remove-row-button');
+        if (!removeButton) return;
+
+        const row = removeButton.closest('.schedule-row');
+        if (!row) return;
+
+        row.remove();
+        updateScheduleDisplay();
+        updateRemoveButtons();
+    });
+
     // 初期の予定行を追加
     addScheduleRow();
     setDefaultFirstRowValues();
     updateScheduleDisplay();
+    updateRemoveButtons();
 
     // オーバーレイの透明度を制御
     const overlayOpacity = document.getElementById('overlay-opacity');
