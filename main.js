@@ -258,7 +258,7 @@ document.getElementById("download").addEventListener("click", () => {
             ('0' + now.getDate()).slice(-2) +
             ('0' + now.getHours()).slice(-2) +
             ('0' + now.getMinutes()).slice(-2);
-        link.download = `itsuiru-schedule-${dateStr}.png`;
+        link.download = `itsu-iru-schedule-${dateStr}.png`;
         link.href = canvas.toDataURL();
         link.click();
     });
