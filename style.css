@@ -141,7 +141,7 @@ textarea {
 .remove-row-button::before {
     content: '';
     position: absolute;
-    inset: 4px;
+    inset: 1px;
     border-radius: 50%;
     background: conic-gradient(rgba(192, 57, 43, 0.35) var(--hold-progress, 0deg), transparent 0deg);
     opacity: var(--hold-progress-visible, 0);
