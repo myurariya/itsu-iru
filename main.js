@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const titleColor = document.getElementById('title-color');
     const notesColor = document.getElementById('notes-color');
     const showMinutes = document.getElementById('show-minutes');
+    const hideDate = document.getElementById('hide-date');
     const scheduleTitle = document.getElementById('schedule-title');
     const titleDisplay = document.getElementById('title-display');
     const notes = document.getElementById('notes');
@@ -134,7 +135,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     endTime = endTime.substring(0, 2) + '時';
                 }
 
-                let line = `${month}月${day}日（${weekday}）${startTime}～${endTime}`;
+                const datePart = `${month}月${day}日（${weekday}）`;
+                const timePart = `${startTime}～${endTime}`;
+                let line = hideDate.checked ? timePart : `${datePart}${timePart}`;
                 if (noteInput.value) {
                     line += ` ${noteInput.value}`;
                 }
@@ -173,6 +176,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         updateScheduleDisplay();
     });
+
+    hideDate.addEventListener('change', updateScheduleDisplay);
 
     // 背景画像選択ボタンのイベントリスナー
     selectBackgroundButton.addEventListener('click', () => {

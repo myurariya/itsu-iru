@@ -88,10 +88,16 @@
             <label for="orientation-portrait">縦長</label>
         </label>
     </div>
-    <div style="margin-bottom: 10px;">
-        <label>
-            <input type="checkbox" checked id="show-minutes"> 分表示を有効にする
-        </label><br>
+    <div class="toggle-group">
+        <label class="checkbox-option">
+            <input type="checkbox" checked id="show-minutes">
+            <span>分表示を有効にする</span>
+        </label>
+        <br>
+        <label class="checkbox-option">
+            <input type="checkbox" id="hide-date">
+            <span>日付表示を非表示</span>
+        </label>
 
         <div id="preview">
             <div id="schedule-output">
