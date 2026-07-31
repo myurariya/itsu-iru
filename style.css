@@ -46,6 +46,10 @@ textarea {
     padding: 20px;
     margin: auto;
     border: 2px solid #ddd;
+    text-align: center;
+    overflow: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     background-color: #ffe4e1;
     /* 市松模様をデフォルト背景にする */
     background-image:
@@ -84,12 +88,22 @@ textarea {
 #notes-display {
     position: relative;
     z-index: 2;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 var(--overlay-margin);
 }
 
-#schedule-output h2,
-#schedule-output pre {
+#schedule-output h2 {
     position: relative;
     z-index: 2;
+}
+
+.schedule-line {
+    white-space: nowrap;
+    text-align: center;
+    line-height: 2;
+    overflow: hidden;
+    width: 100%;
 }
 
 #schedule-inputs {
@@ -239,19 +253,21 @@ textarea {
 }
 
 #notes-display {
-    margin: 20px var(--overlay-margin);
+    margin: 20px 0 0;
     font-size: 0.9em;
     white-space: pre-wrap;
-    text-align: left;
+    text-align: center;
 }
 
 #title-display {
     margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
 }
 
 #output-text {
-    margin: 0 var(--overlay-margin);
-    line-height: 2;
+    margin: 0;
 }
 
 .title-stroke {

@@ -28,12 +28,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const holdHint = document.getElementById('hold-hint');
     const scheduleInputsContainer = document.querySelector('.schedule-inputs-container');
 
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function fitPreviewText() {
+        const targets = [
+            titleDisplay,
+            ...outputText.querySelectorAll('.schedule-line')
+        ];
+
+        targets.forEach(element => {
+            element.style.fontSize = '';
+        });
+
+        if (!scheduleOutput.classList.contains('portrait')) {
+            return;
+        }
+
+        targets.forEach(element => {
+            let fontSize = parseFloat(getComputedStyle(element).fontSize);
+
+            while (element.scrollWidth > element.clientWidth && fontSize > 6) {
+                fontSize -= 0.5;
+                element.style.fontSize = `${fontSize}px`;
+            }
+        });
+    }
+
     // 画像の向きの切り替え
     const orientationInputs = document.querySelectorAll('input[name="orientation"]');
     orientationInputs.forEach(input => {
         input.addEventListener('change', function () {
             scheduleOutput.classList.remove('landscape', 'portrait');
             scheduleOutput.classList.add(this.value);
+            fitPreviewText();
         });
     });
 
@@ -94,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // タイトル変更のイベントリスナー
     scheduleTitle.addEventListener('input', (e) => {
         titleDisplay.textContent = e.target.value;
+        fitPreviewText();
     });
 
     // タイトルの文字色変更のイベントリスナー
@@ -166,8 +198,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateScheduleDisplay() {
         const scheduleData = collectScheduleData();
-        outputText.textContent = scheduleData.map(item => item.text).join('\n');
+        outputText.innerHTML = scheduleData
+            .map(item => `<div class="schedule-line">${escapeHtml(item.text)}</div>`)
+            .join('');
         notesDisplay.textContent = notes.value;
+        fitPreviewText();
     }
 
     scheduleInputs.addEventListener('input', updateScheduleDisplay);
@@ -218,6 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
         titleDisplay.style.fontFamily = `'${selectedFont}', sans-serif`;
         outputText.style.fontFamily = `'${selectedFont}', sans-serif`;
         notesDisplay.style.fontFamily = `'${selectedFont}', sans-serif`;
+        fitPreviewText();
     });
 
     // 新しい予定行を追加する関数
@@ -427,6 +463,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setDefaultFirstRowValues();
     updateScheduleDisplay();
     updateRemoveButtons();
+    document.fonts.ready.then(() => fitPreviewText());
 
     // オーバーレイの透明度を制御
     const overlayOpacity = document.getElementById('overlay-opacity');
